@@ -8,6 +8,9 @@ public class Game
     /** Postcondition: All instance variables have been initialized. */
     public Game()
     { 
+        levelOne = new Level();
+        levelTwo = new Level();
+        levelThree = new Level();
         /* implementation not shown */ 
     }
 
@@ -34,8 +37,24 @@ public class Game
     /** Returns the score earned in the most recently played game, as described in part (a) */
     public int getScore()
     { 
-        /* to be implemented in part (a) */ 
-        return 0;
+        int points = 0;
+        if(levelOne.goalReached())
+        {
+            points += levelOne.getPoints();
+            if(levelTwo.goalReached())
+            {
+                points += levelTwo.getPoints();
+                if(levelThree.goalReached())
+                {
+                    points += levelThree.getPoints();
+                    if(isBonus())
+                    {
+                        points *= 3;
+                    }
+                }
+            }
+        }
+        return points;
     }
 
     /** Simulates the play of num games and returns the highest score earned, as
