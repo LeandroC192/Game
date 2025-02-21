@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Game
 {
     private Level levelOne;
@@ -31,6 +33,10 @@ public class Game
     */
     public void play()
     { 
+        System.out.println("Enter the number of points.");
+        Scanner s = new Scanner(System.in);
+        levelOne.setPoints(s.nextInt());
+        levelOne.reachGoal();
         /* implementation not shown */ 
     }
 
@@ -47,12 +53,12 @@ public class Game
                 if(levelThree.goalReached())
                 {
                     points += levelThree.getPoints();
-                    if(isBonus())
-                    {
-                        points *= 3;
-                    }
                 }
             }
+        }
+        if(isBonus())
+        {
+            points *= 3;
         }
         return points;
     }
@@ -64,8 +70,19 @@ public class Game
 
     public int playManyTimes(int num)
     { 
+        int max = 0;
+        while(num > 0)
+        {
+            play();
+            int score = getScore();
+            if(score > max)
+            {
+                max = score;
+            }
+            num--;
+        }
         /* to be implemented in part (b) */ 
-        return 0;
+        return max;
     }
 
     public Level getLevel(int i)
